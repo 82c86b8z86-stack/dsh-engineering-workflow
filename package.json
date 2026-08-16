@@ -1,0 +1,72 @@
+{
+  "name": "dsh-engineering-workflow",
+  "version": "0.1.0",
+  "description": "Engineering workflow layer for DeepSeek Harness (dsh): a disciplined-engineer agent preset with five gated phases — requirements clarification, plan approval, TDD implementation, parallel subagent execution, and verified finishing. Skills adapted from the obra/superpowers workflow methodology.",
+  "type": "module",
+  "license": "MIT",
+  "author": "82c86b8z86-stack",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "dsh-bundle",
+    "deepseek-harness",
+    "agent-preset",
+    "skills",
+    "workflow",
+    "tdd",
+    "subagents",
+    "engineering"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json",
+    "./presets/*": "./presets/*"
+  },
+  "files": [
+    "lib",
+    "presets",
+    "scripts",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/82c86b8z86-stack/dsh-engineering-workflow.git"
+  },
+  "homepage": "https://github.com/82c86b8z86-stack/dsh-engineering-workflow#readme",
+  "bugs": {
+    "url": "https://github.com/82c86b8z86-stack/dsh-engineering-workflow/issues"
+  },
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "scripts": {
+    "test": "node --test",
+    "sync": "node scripts/sync-presets.mjs",
+    "validate": "node scripts/validate-preset.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "schemastery": "^3.18.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.6"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-system-prompt": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

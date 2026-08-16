@@ -1,0 +1,14 @@
+# dsh-engineering-workflow bundle patch: inserts the host plugin row into
+# the profile roster. Applied as a profile bundle layer (the `dsh.bundle.patch`
+# manifest field) over dsh-base; install with
+# `dsh plugin --profile <name> add github:82c86b8z86-stack/dsh-engineering-workflow`
+# or as a `link:` dependency for local development.
+#
+# The row is a bare plugin by package name: the node half (exports ".") runs
+# in the host process and syncs the bundled engineering-workflow agent preset
+# (composition + skills) into ~/.dsh/.agent-presets/engineering-workflow on
+# startup, then announces the workflow to the model through a system-prompt
+# section. No browser half.
+- insert:
+    - id: engineering-workflow
+      name: dsh-engineering-workflow
