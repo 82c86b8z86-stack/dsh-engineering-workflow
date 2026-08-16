@@ -1,0 +1,3 @@
+name: 工程工作流
+description: 纪律工程师模式：需求澄清 → 计划审批 → TDD 实现 → 子 Agent 并行执行 → 验证收尾，五阶段硬门禁的完整工程化工作流，附带 6 个 workflow 技能。
+order: 5

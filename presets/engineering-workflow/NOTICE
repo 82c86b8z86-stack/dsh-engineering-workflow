@@ -1,0 +1,4 @@
+agent.cordis.yml 改编自 DeepSeek Harness 内置 cordis preset（MIT）。
+工作流方法论与技能内容改编自 obra/superpowers（MIT，https://github.com/obra/superpowers）。
+preset 同步宿主插件模式参考 @linxin666/dsh-liangshen（Apache-2.0）。
+原始版权与许可声明见各开源仓库。
