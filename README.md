@@ -1,5 +1,7 @@
 # dsh-engineering-workflow
 
+[![CI](https://github.com/82c86b8z86-stack/dsh-engineering-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/82c86b8z86-stack/dsh-engineering-workflow/actions/workflows/ci.yml)
+
 An engineering workflow layer for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (dsh). One install adds the **工程工作流 (Engineering Workflow)** agent preset — a disciplined-engineer mode with five hard-gated phases — plus six workflow skills that carry the methodology.
 
 The workflow methodology is adapted from [obra/superpowers](https://github.com/obra/superpowers) (MIT): brainstorming, writing-plans, TDD, subagent-driven development, and verification-before-completion, reworked for dsh's native tools (plan mode + `exit_plan_mode`, background `subagent`/`subagent_fork`, `workflow` orchestration, goals, and the preset/skill system).

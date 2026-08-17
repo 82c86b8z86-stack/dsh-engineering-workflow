@@ -1,5 +1,7 @@
 # dsh-engineering-workflow（工程工作流）
 
+[![CI](https://github.com/82c86b8z86-stack/dsh-engineering-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/82c86b8z86-stack/dsh-engineering-workflow/actions/workflows/ci.yml)
+
 为 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（dsh）叠加完整的工程化工作流层。一次安装即获得「**工程工作流**」agent preset——带五阶段硬门禁的纪律工程师模式——以及承载方法论的 6 个工作流技能。
 
 方法论改编自 [obra/superpowers](https://github.com/obra/superpowers)（MIT）的 brainstorming / writing-plans / TDD / subagent-driven-development / verification-before-completion，并针对 dsh 原生能力重写：plan mode + `exit_plan_mode`、后台 `subagent`/`subagent_fork`、`workflow` 编排、目标工具与 preset/skill 体系。
