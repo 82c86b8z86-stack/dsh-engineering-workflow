@@ -1,6 +1,6 @@
 {
   "name": "dsh-engineering-workflow",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Engineering workflow layer for DeepSeek Harness (dsh): a disciplined-engineer agent preset with five gated phases — requirements clarification, plan approval, TDD implementation, parallel subagent execution, and verified finishing. Skills adapted from the obra/superpowers workflow methodology.",
   "type": "module",
   "license": "MIT",
@@ -48,6 +48,7 @@
   "scripts": {
     "test": "node --test",
     "sync": "node scripts/sync-presets.mjs",
+    "verify": "node scripts/verify-install.mjs",
     "validate": "node scripts/validate-preset.mjs"
   },
   "dsh": {

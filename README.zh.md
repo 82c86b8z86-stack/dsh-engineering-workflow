@@ -52,6 +52,21 @@ dsh-engineering-workflow (bundle)
 
 preset 通过 `@deepseek-ai/dsh-skill-filesystem` 的 `customSkillDirs`（以 preset 自身目录为根）接入技能——与内置 `cordis` preset 同款模式，技能目录随 preset 走到哪跟到哪。
 
+## 验证安装
+
+```sh
+node scripts/verify-install.mjs
+# ✓ engineering-workflow: current (byte-identical)
+```
+
+只读比对内置 preset 与 `~/.dsh/.agent-presets`，不做任何写入。若报告 `stale` 或 `missing`，执行 `node scripts/sync-presets.mjs`（或重启一次 dsh，让宿主插件在挂载时同步）。
+
+插件生效的位置：
+
+- **预设选择器**（新建会话对话框）中出现「工程工作流」——dsh 每次读取 roster 都会重新发现预设，同步后无需重启即可见。新建会话时选择它；已有会话与默认预设不会被自动切换。
+- **system-prompt 公告**（模型读到的工作流指引）只出现在宿主插件挂载之后创建的会话里——即安装后第一次重启 dsh 之后。
+- 6 个工作流技能随预设加载，可在这些会话里通过 `skill` 工具调用。
+
 ## 开发
 
 ```sh
@@ -59,6 +74,7 @@ pnpm install
 pnpm test          # preset 同步单元测试
 pnpm run validate  # 内置 preset 结构校验
 pnpm run sync      # 同步 preset 到 ~/.dsh/.agent-presets
+pnpm run verify    # 字节级比对内置 preset 与安装结果
 ```
 
 ## 许可

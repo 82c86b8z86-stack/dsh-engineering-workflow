@@ -53,6 +53,21 @@ dsh-engineering-workflow (bundle)
 
 The preset wires its skills through `@deepseek-ai/dsh-skill-filesystem` with `customSkillDirs` rooted at the preset's own directory — the same pattern the shipped `cordis` preset uses, so the skill catalog travels with the preset wherever it is installed.
 
+## Verify the install
+
+```sh
+node scripts/verify-install.mjs
+# ✓ engineering-workflow: current (byte-identical)
+```
+
+This compares the bundled preset against `~/.dsh/.agent-presets` without writing anything. If it reports `stale` or `missing`, run `node scripts/sync-presets.mjs` (or restart dsh once so the host plugin syncs on mount).
+
+Where the plugin takes effect:
+
+- The **preset picker** (new-session dialog) lists **工程工作流** — dsh re-discovers presets on every roster read, so a synced preset appears without a restart. Pick it for a new session; existing sessions and the default preset are never switched.
+- The **system-prompt announcement** (the workflow guidance the model reads) appears in sessions created after the host plugin mounted — i.e. after the first dsh restart following the install.
+- The six workflow skills load with the preset and are invocable via the `skill` tool in those sessions.
+
 ## Development
 
 ```sh
@@ -60,6 +75,7 @@ pnpm install
 pnpm test          # preset-sync unit tests
 pnpm run validate  # structural validation of the bundled preset
 pnpm run sync      # sync the preset into ~/.dsh/.agent-presets
+pnpm run verify    # byte-compare the bundled preset against the install
 ```
 
 ## License

@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir, homedir } from "node:os";
-import { syncOnePreset, syncPresetTrees, dshHome, expandTilde, bundledPresetsRoot } from "../lib/index.js";
+import { syncOnePreset, syncPresetTrees, verifyPresetTrees, dshHome, expandTilde, bundledPresetsRoot } from "../lib/index.js";
 
 function fixture() {
   const dir = mkdtempSync(join(tmpdir(), "dsh-wf-"));
@@ -75,6 +75,29 @@ test("syncPresetTrees leaves sibling presets untouched and retires ids", () => {
     assert.deepEqual(result.retired, ["stale"]);
     assert.ok(existsSync(join(dir, "dst", "other", "agent.cordis.yml")), "sibling preset preserved");
     assert.ok(!existsSync(join(dir, "dst", "stale")));
+  } finally {
+    cleanup();
+  }
+});
+
+test("verifyPresetTrees reports ok, stale and missing without writing", () => {
+  const { dir, cleanup } = fixture();
+  try {
+    write(dir, "src/a/agent.cordis.yml", "a");
+    write(dir, "src/b/agent.cordis.yml", "b");
+    syncPresetTrees(join(dir, "src"), join(dir, "dst"));
+    let report = verifyPresetTrees(join(dir, "src"), join(dir, "dst"));
+    assert.deepEqual(report.map((r) => [r.id, r.status]), [["a", "ok"], ["b", "ok"]]);
+    write(dir, "src/a/agent.cordis.yml", "a2");
+    rmSync(join(dir, "dst", "b"), { recursive: true, force: true });
+    write(dir, "dst/a/extra.yml", "x");
+    report = verifyPresetTrees(join(dir, "src"), join(dir, "dst"));
+    assert.deepEqual(report.find((r) => r.id === "a").status, "stale");
+    assert.deepEqual(report.find((r) => r.id === "a").differing, ["agent.cordis.yml"]);
+    assert.deepEqual(report.find((r) => r.id === "a").extra, ["extra.yml"]);
+    assert.deepEqual(report.find((r) => r.id === "b").status, "missing");
+    // verification never writes: the diverged target files stay diverged
+    assert.equal(readFileSync(join(dir, "dst", "a", "agent.cordis.yml"), "utf8"), "a");
   } finally {
     cleanup();
   }
