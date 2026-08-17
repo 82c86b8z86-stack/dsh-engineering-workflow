@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: node --test
+      - run: node scripts/validate-preset.mjs
+      - run: node scripts/sync-presets.mjs /tmp/dsh-agent-presets
+      - run: node scripts/verify-install.mjs /tmp/dsh-agent-presets
